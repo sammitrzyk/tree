@@ -19,6 +19,7 @@
   1. GTM: replace GTM-XXXXXXX in the two snippets below. Configure Google Ads, GA4 and
      Meta Pixel tags INSIDE GTM using the dataLayer events documented in the <script> at the bottom.
   2. FORM_ENDPOINT: set in CONFIG at the bottom (must accept multipart/form-data with a file field "photo").
+     Currently wired to Netlify Forms ("/") — submissions show up under Site configuration > Forms once deployed on Netlify.
   3. Photos: drop files into /images using the exact file names in each <img src>. Missing photos show a labeled placeholder.
   4. VERIFY before launch (do not publish unverified claims):
      - 4.9 Google rating is still current
@@ -392,13 +393,15 @@ footer a{color:#fff;font-weight:700;text-decoration:none}
     <!-- ESTIMATE FORM -->
     <div class="form-col" id="estimate">
       <div class="form-card" id="formCard">
-        <form id="leadForm" novalidate enctype="multipart/form-data">
+        <form id="leadForm" name="tree-removal-estimate" data-netlify="true" novalidate enctype="multipart/form-data">
           <p class="eyebrow">Free Tree Removal Estimate</p>
           <h2>Tell Us About the Tree</h2>
           <p class="lead">Takes less than a minute. Give us a few details and we’ll follow up about the next step.</p>
           <div class="steps-ind" aria-hidden="true"><i class="on" id="ind1"></i><i id="ind2"></i></div>
           <p class="steps-label" id="stepLabel">Step 1 of 2</p>
 
+          <!-- Netlify Forms: identifies this submission to Netlify's form backend -->
+          <input type="hidden" name="form-name" value="tree-removal-estimate">
           <!-- hidden attribution fields -->
           <input type="hidden" name="service_page" value="tree-removal-mechanicsburg">
           <input type="hidden" name="gclid"><input type="hidden" name="gbraid"><input type="hidden" name="wbraid">
@@ -600,13 +603,15 @@ footer a{color:#fff;font-weight:700;text-decoration:none}
   <div class="wrap">
     <div class="form-col" id="estimate-b">
       <div class="form-card" id="formCard-b">
-        <form id="leadForm-b" novalidate enctype="multipart/form-data">
+        <form id="leadForm-b" name="tree-removal-estimate" data-netlify="true" novalidate enctype="multipart/form-data">
           <p class="eyebrow">Free Tree Removal Estimate</p>
           <h2>Tell Us About the Tree</h2>
           <p class="lead">Takes less than a minute. Give us a few details and we’ll follow up about the next step.</p>
           <div class="steps-ind" aria-hidden="true"><i class="on" id="ind1-b"></i><i id="ind2-b"></i></div>
           <p class="steps-label" id="stepLabel-b">Step 1 of 2</p>
 
+          <!-- Netlify Forms: identifies this submission to Netlify's form backend -->
+          <input type="hidden" name="form-name" value="tree-removal-estimate">
           <!-- hidden attribution fields -->
           <input type="hidden" name="service_page" value="tree-removal-mechanicsburg">
           <input type="hidden" name="gclid"><input type="hidden" name="gbraid"><input type="hidden" name="wbraid">
@@ -710,7 +715,9 @@ footer a{color:#fff;font-weight:700;text-decoration:none}
 var CONFIG = {
   // POST target. Must accept multipart/form-data (field "photo" = optional image).
   // Leave empty to run in demo mode (shows thank-you, fires NO conversion events).
-  FORM_ENDPOINT: "",
+  // "/" submits to Netlify Forms (the form has data-netlify="true" + name="tree-removal-estimate")
+  // and leads will appear under Site configuration > Forms in the Netlify dashboard.
+  FORM_ENDPOINT: "/",
   // Optional: send step-1 contact info as a partial lead when "Continue" is clicked
   // (does NOT count as a conversion — only captures name/phone in case they abandon step 2).
   SEND_PARTIAL: true
