@@ -455,15 +455,6 @@ footer a{color:#fff;font-weight:700;text-decoration:none}
               <label for="f-msg">Tell us briefly what’s going on <span class="opt">(optional)</span></label>
               <textarea id="f-msg" name="message" placeholder="e.g. Large oak leaning toward the garage"></textarea>
             </div>
-            <div class="field" id="photoField">
-              <span class="lbl" style="display:block;font-weight:750;margin-bottom:6px;color:var(--green-ink)">Upload a Photo of the Tree <span class="opt" style="font-weight:500;color:var(--muted)">(optional)</span></span>
-              <label class="upload" for="f-photo">
-                <input id="f-photo" name="photo" type="file" accept="image/*">
-                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="#24372b" stroke-width="2" aria-hidden="true"><path d="M4 7h3l2-3h6l2 3h3v13H4z"/><circle cx="12" cy="13" r="4"/></svg>
-                <span><b>Add a photo</b><br><span class="fname" id="fname">Helps us understand the job before we visit</span></span>
-              </label>
-              <p class="err-msg" id="photoErr">Photo must be under 10 MB.</p>
-            </div>
             <div class="field">
               <label for="f-addr">Property Address or Town <span class="opt">(optional)</span></label>
               <input id="f-addr" name="address" type="text" autocomplete="street-address">
@@ -665,15 +656,6 @@ footer a{color:#fff;font-weight:700;text-decoration:none}
               <label for="f-msg-b">Tell us briefly what’s going on <span class="opt">(optional)</span></label>
               <textarea id="f-msg-b" name="message" placeholder="e.g. Large oak leaning toward the garage"></textarea>
             </div>
-            <div class="field" id="photoField-b">
-              <span class="lbl" style="display:block;font-weight:750;margin-bottom:6px;color:var(--green-ink)">Upload a Photo of the Tree <span class="opt" style="font-weight:500;color:var(--muted)">(optional)</span></span>
-              <label class="upload" for="f-photo-b">
-                <input id="f-photo-b" name="photo" type="file" accept="image/*">
-                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="#24372b" stroke-width="2" aria-hidden="true"><path d="M4 7h3l2-3h6l2 3h3v13H4z"/><circle cx="12" cy="13" r="4"/></svg>
-                <span><b>Add a photo</b><br><span class="fname" id="fname-b">Helps us understand the job before we visit</span></span>
-              </label>
-              <p class="err-msg" id="photoErr-b">Photo must be under 10 MB.</p>
-            </div>
             <div class="field">
               <label for="f-addr-b">Property Address or Town <span class="opt">(optional)</span></label>
               <input id="f-addr-b" name="address" type="text" autocomplete="street-address">
@@ -852,13 +834,6 @@ function phMissing(img){ var p=img.parentNode; img.remove(); if(p) p.classList.a
     });
     $('backBtn').addEventListener('click', function(){ show(1); $('f-name').focus(); });
 
-    var photo=$('f-photo'), fname=$('fname'), hint='Helps us understand the job before we visit';
-    photo.addEventListener('change', function(){
-      var f=photo.files[0], bad=f && f.size > 10*1024*1024;
-      $('photoField').classList.toggle('err', !!bad);
-      if(bad){ photo.value=''; fname.textContent=hint; return; }
-      fname.textContent = f ? f.name : hint;
-    });
     form.querySelectorAll('input[name=service]').forEach(function(r){ r.addEventListener('change', function(){ $('svcField').classList.remove('err'); }); });
 
     var sending=false;
