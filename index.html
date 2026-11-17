@@ -751,6 +751,7 @@ var CONFIG = {
    - phone_click        {click_location}  -> Google Ads "Calls from website" conversion + GA4
    - form_start         first interaction with the form (funnel / Meta "started form" audience)
    All form events carry form_location: 'top' | 'bottom' (the same form appears twice).
+   - lead_mini_submit   fires on every Continue click, even if step 1 is invalid (funnel only — NOT a lead)
    - form_step_2        Continue clicked with valid step 1 (funnel only — NOT a lead)
    - form_submit        submit attempt with valid step 2 (funnel only — NOT a lead)
    - generate_lead      ONLY after the endpoint returns success -> Google Ads lead conversion,
@@ -834,6 +835,7 @@ function phMissing(img){ var p=img.parentNode; img.remove(); if(p) p.classList.a
     }
 
     $('toStep2').addEventListener('click', function(){
+      ev('lead_mini_submit');
       if(!validStep1()) return;
       ev('form_step_2'); show(2);
       var addr=$('f-addr'); if(!addr.value) addr.value=$('f-zip').value;
